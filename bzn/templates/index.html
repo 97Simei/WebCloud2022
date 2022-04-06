@@ -1,0 +1,28 @@
+{% block title %} Create a New Shortener {% endblock %}
+{% block content %}
+
+<div class="content">
+	<h2>URL Shortener</h2>
+	<form method="post">
+	    <div class="input">
+	        <label for="title">Input URL: </label>
+	        <input type="text" name="url"
+	               placeholder="input the url..." class="form-control"
+	               value="{{ request.form['url'] }}"></input>
+
+	        <button type="submit" class="btn btn-primary">Shorten</button>
+	    </div>
+	</form>
+
+	{% if short_url %}
+		<label for="title">Output URL: </label>
+        <span><a href="{{ short_url }}">{{ short_url }}</a></span>
+    {% endif %}
+
+    {% if url_false %}
+		<h4> The input url is empty or incorrectly formatted. </h4>
+    {% endif %}
+
+</div>
+
+{% endblock %}
