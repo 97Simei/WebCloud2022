@@ -30,7 +30,7 @@ def isValidURL(str):
 @app.route('/URLList', methods=('GET','POST'))
 def showUrls():
     if request.method == 'GET':
-        return URLS
+        return render_template('list.html', urls=URLS )
 #shorten url to original url
 @app.route('/<string:hashid>/',methods=('GET','POST'))
 def redirectURl(hashid):
