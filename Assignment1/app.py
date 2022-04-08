@@ -11,6 +11,12 @@ URLS={}
 
 
 id = 0
+def get_key(val):
+    for key, value in URLS.items():
+         if val == value:
+             return key
+ 
+    return "key doesn't exist"
 
 def isValidURL(str):
     regex = ("((http|https)://)(www.)?" +
@@ -44,10 +50,9 @@ def redirectURl(hashid):
 @app.route('/delete/<string:hashid>',methods=['GET'])
 def deleteURl(hashid):
     del URLS[hashid]
-    return URLS
+    return render_template('list.html', urls=URLS )
 
 #delete all
-
 @app.route('/delete/All',methods=['GET'])
 def deleteAllURl():
     URLS={}
@@ -64,11 +69,12 @@ def createShortUrl():
         if isValidURL(url) == False:
             shorturl = ''
             return render_template('index.html', url_false = True)
-
         else:
-            url_false = False
             id = id+1
             hashid = hashids.encode(id)
+            if url in URLS.values():
+                key=get_key(url)
+                del URLS[key]
             URLS[hashid] = url
             shorturl = request.host_url + hashid
             return render_template('index.html', short_url=shorturl)
