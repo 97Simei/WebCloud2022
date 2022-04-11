@@ -1,12 +1,14 @@
 # WebCloud2022
+<img width="1154" alt="Screenshot 2022-04-11 at 11 02 40" src="https://user-images.githubusercontent.com/86485345/162702732-ff5196bb-8b1f-44ac-991f-665d7780504f.png">
+
 
 # Structure
 - Assignment1: root folder of the first assignment 
-- static: css style 
-- templates: html file
-- - app.py: main logic
-- - README.md: this file
-- - run.sh: bash file to intstall the requirement packages and run the application
+    - static: folder, css style 
+    - templates: folder, html files
+    - app.py: main logic
+    - README.md: this file
+    - run.sh: bash file to intstall the requirement packages and run the application
 
 # Run the code
 - Create your own virtual environment:
