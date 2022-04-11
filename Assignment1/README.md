@@ -22,7 +22,7 @@ Follow the link: https://docs.python.org/3/library/venv.html
 # Use Service-Example:
 - Shorten a Url：
 Input the Url and Click “Submit” button
-- See All URL：
+- See All URLs：
 rederict to http://127.0.0.1:5000/URLList
 - Delete a URL：
 hashid could get from the URLList
