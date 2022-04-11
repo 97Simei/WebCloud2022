@@ -47,6 +47,24 @@ def redirectURl(hashid):
         listurl = request.host_url+'URLList'
         return render_template('404.html', home_url=request.host_url ,list_url=listurl), 404
 #delete url
+@app.route('/update/<string:hashid>',methods=('GET', 'POST'))
+def updateURl(hashid):
+    if request.method == 'GET':
+        return render_template('index.html', url_false = False)
+    if request.method == 'POST':
+        url= request.form['url']
+
+        if isValidURL(url) == False:
+            shorturl = ''
+            return render_template('index.html', url_false = True)
+        else:
+            if url in URLS.values():
+                key=get_key(url)
+                del URLS[key]
+            URLS[hashid] = url
+            shorturl = request.host_url + hashid
+            return render_template('index.html', short_url=shorturl)
+#delete url
 @app.route('/delete/<string:hashid>',methods=['GET'])
 def deleteURl(hashid):
     del URLS[hashid]
