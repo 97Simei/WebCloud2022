@@ -46,7 +46,7 @@ def redirectURl(hashid):
     else:
         listurl = request.host_url+'URLList'
         return render_template('404.html', home_url=request.host_url ,list_url=listurl), 404
-#delete url
+#update url
 @app.route('/update/<string:hashid>',methods=('GET', 'POST'))
 def updateURl(hashid):
     if request.method == 'GET':
