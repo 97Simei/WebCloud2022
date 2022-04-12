@@ -1,0 +1,15 @@
+label {
+    color: #4155d6;
+    margin-left: 0px;
+  }
+  h2 {
+    color: rgb(211, 19, 19);
+    text-align: center;
+    padding: 10px;
+  }
+  body {
+    background-color: rgb(173, 230, 201);
+  }
+  div {
+     text-align: left;
+  }
