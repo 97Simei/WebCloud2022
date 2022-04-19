@@ -1,38 +1,235 @@
-{% extends 'base.html' %}
-{% block title %} Create a New Shortener {% endblock %}
-{% block content %}
-
-<button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>
-
-<div id="id01" class="modal">
-  <form class="modal-content" method="post">
-    <div class="container">
-      <label for="uname"><b>Username</b></label>
-      <input type="text" placeholder="Enter Username" name="uname" required>
-
-      <label for="psw"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="psw" required>
-        
-      <button type="submit">Login</button>
-      <label>
-        <input type="checkbox" checked="checked" name="remember"> Remember me
-      </label>
-    </div>
-
-    <div class="container" style="background-color:#f1f1f1">
-      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-      <span class="psw">Forgot <a href="#">password?</a></span>
-    </div>
-  </form>
-</div>
+{% extends 'base.html' %} {% block title %} Create a New Shortener {% endblock
+%} {% block content %}
 <script>
-	// Get the modal
-	var modal = document.getElementById('id01');
-	// When the user clicks anywhere outside of the modal, close it
-	window.onclick = function(event) {
-		if (event.target == modal) {
-			modal.style.display = "none";
-		}
-	}
+  function submitPost(e) {
+    $.ajax({
+      type: "post",
+      url: "http://127.0.0.1:5000/users/login",
+      data: $("#loginform").serialize(),
+      success: function (data) {
+        localStorage.token = data.token;
+        console.log(localStorage.token);
+        if (localStorage.token) {
+          document.getElementById("loginform").style.display = "none";
+          document.getElementById("buttongroup").style.display = "block";
+        }
+      },
+      error: function () {
+        alert("Login Failed");
+      },
+    });
+  }
 </script>
+<script>
+  function submitGet(e) {
+    $.ajax({
+      type: "get",
+      url: "http://127.0.0.1:5000/",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+      success: function (response) {
+        console.log(response)
+        alert(response)
+      },
+      error: function (response) {
+        alert(response.status)
+        alert("forbidden");
+      },
+    });
+  }
+  function ShortenURL(){
+    document.getElementById('id01').style.display='none'
+    $.ajax({
+      type: "post",
+      url: "http://127.0.0.1:5000/",
+      data: $("#formshort").serialize(),
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+      success: function (response) {
+        alert(response)
+      },
+      error: function () {
+        alert("Login Failed");
+      },
+    });
+  }
+  function deleteAll() {
+    $.ajax({
+      url: "/",
+      type: "DELETE",
+      contentType:'application/json',
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+      dataType: 'text',   
+      success: function (result) {
+        alert(result)
+      },
+      error: function (result) {
+        alert(result)
+      },
+    });
+    
+  }
+  function deleteURLById(id) {
+    document.getElementById('id02').style.display='none'
+    $.ajax({
+      url: '/'+id,
+      type: "DELETE",
+      contentType:'application/json',
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+      dataType: 'text',   
+      success: function (result) {
+        alert(result)
+      },
+      error: function (result) {
+        alert(result)
+      },
+    });
+  }
+  function updateURLById(id) {
+    document.getElementById('id03').style.display='none'
+    $.ajax({
+      url: '/'+id,
+      type: "PUT",
+      contentType:'application/json',
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+        url:document.getElementById('updateurl').value,
+      },
+      dataType: 'text',   
+      success: function (result) {
+        alert(result)
+      },
+      error: function (result) {
+        alert(result)
+      },
+    });
+  }
+  function getURLById(id) {
+    document.getElementById('id04').style.display='none'
+    $.ajax({
+      url: "http://127.0.0.1:5000/"+id,
+      type: "GET",
+      contentType:'application/json',
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+      dataType: 'text',   
+      success: function (result) {
+        console.log(result.status)
+      },
+      error: function (result) {
+        console.log(result.status)
+        alert(result.status)
+      },
+    });
+  }
+</script>
+
+
+
+<form id="loginform" class="modal-content">
+  <div class="container">
+    <label for="uname"><b>Username</b></label>
+    <input
+      id="uname"
+      type="text"
+      placeholder="Enter Username"
+      name="uname"
+      required
+    />
+
+    <label for="psw"><b>Password</b></label>
+    <input
+      id="psw"
+      type="password"
+      placeholder="Enter Password"
+      name="psw"
+      required
+    />
+
+    <button id="goodLogin" onclick="submitPost()" type="button">Login</button>
+  </div>
+</form>
+<div id="buttongroup" style="display:none">
+<button id="ShowURLS" onclick="submitGet()">ShowURLS</button>
+<button id="ShortenURL" onclick="document.getElementById('id01').style.display='block'" >ShortenURL</button>
+<button id="DELETEURLS" onclick="deleteAll()">DELETEURLS</button>
+<button id="DELETEURLBYID" onclick="document.getElementById('id02').style.display='block'" >DELETEURLBYID</button>
+<button id="UPDATEURLBYID" onclick="document.getElementById('id03').style.display='block'" >UPDATEURLBYID</button>
+<button id="GETURLBYID" onclick="document.getElementById('id04').style.display='block'" >GETURLBYID</button>
+</div>
+
+
+  <div id="id01" class="modal">
+    <div class="modal-content">
+      <h2>URL Shortener</h2>
+      <form id="formshort" class="modal-content">
+          <div class="input">
+              <label for="title">Input URL: </label>
+              <input type="text" name="url"
+                     placeholder="input the url..." class="form-control"
+                     value="{{ request.form['url'] }}"></input>
+    
+              <button type="button" id="short" onclick="ShortenURL()" class="btn btn-primary">Shorten</button>
+          </div>
+      </form>
+    </div>
+  </div>
+  
+  
+  <div id="id02" class="modal">
+    <div class="modal-content">
+      <h2>Delete URL</h2>
+      <form id="formdelete" class="modal-content">
+          <div class="input">
+              <label for="hashid">Delete URL's Hashid: </label>
+              <input id='deleteid' type="text" name="id"
+                     placeholder="input the hashid..." class="form-control"
+                     value="{{ request.form['id'] }}"></input>
+              <button type="button" id="delete" onclick="deleteURLById(document.getElementById('deleteid').value)" class="btn btn-primary">Delete</button>
+          </div>
+      </form>
+    </div>
+  </div>
+  
+  <div id="id03" class="modal">
+    <div class="modal-content">
+      <h2>Update URL</h2>
+      <form id="formupdate" class="modal-content">
+          <div class="input">
+              <label >Update URL's Hashid: </label>
+              <input id='updateid' type="text" name="updateidid"
+                     placeholder="input the hashid..." class="form-control"
+                     value="{{ request.form['id'] }}"></input>
+              <label >Input New URL: </label>
+              <input id='updateurl' type="text" name="url"
+                            placeholder="input the new URL..." class="form-control"
+                            value="{{ request.form['url'] }}"></input>
+              <button type="button" id="update" onclick="updateURLById(document.getElementById('updateid').value)" class="btn btn-primary">Update</button>
+          </div>
+      </form>
+    </div>
+  </div>
+  
+  
+  <div id="id04" class="modal">
+    <div class="modal-content">
+      <h2>GET URL</h2>
+      <form id="formget" class="modal-content">
+          <div class="input">
+              <label> Wanted URL's Hashid: </label>
+              <input id='getid' type="text" name="getid"
+                     placeholder="input the hashid..." class="form-control"
+                     value="{{ request.form['id'] }}"></input>
+              <button type="button"  id="get" onclick="getURLById(document.getElementById('getid').value)" class="btn btn-primary">Get</button>
+          </div>
+      </form>
+    </div>
+  </div>
 {% endblock %}

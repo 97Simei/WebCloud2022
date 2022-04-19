@@ -1,0 +1,3 @@
+flask
+hashids
+Flask-JWT-Extended
