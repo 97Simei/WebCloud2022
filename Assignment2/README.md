@@ -14,7 +14,7 @@
 - Create your own virtual environment:
 Follow the link: https://docs.python.org/3/library/venv.html
 - Activate your virtual environment:
-- Install 
+- Install:
     pip install -r requirement.txt
 - Run the code:
     sh app.sh
