@@ -15,12 +15,12 @@
 Follow the link: https://docs.python.org/3/library/venv.html
 - Activate your virtual environment:
 - Install:
-    pip install -r requirement.txt
+- - pip install -r requirement.txt
 - Run the code:
-    sh app.sh
-    sh user.sh
+- - sh app.sh
+- - sh user.sh
 - You can quit the venv by:
-    deactivate
+- - deactivate
 
 # Use Service-Example:
 - "http://127.0.0.1:5001/users" : user register
