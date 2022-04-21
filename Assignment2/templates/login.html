@@ -1,10 +1,11 @@
 {% extends 'base.html' %} {% block title %} Create a New Shortener {% endblock
 %} {% block content %}
+
 <script>
   function submitPost(e) {
     $.ajax({
       type: "post",
-      url: "http://127.0.0.1:5000/users/login",
+      url: "/users/login",
       data: $("#loginform").serialize(),
       success: function (data) {
         localStorage.token = data.token;
@@ -13,6 +14,7 @@
           document.getElementById("loginform").style.display = "none";
           document.getElementById("buttongroup").style.display = "block";
         }
+        // window.location.replace("http://127.0.0.1:5002/");
       },
       error: function () {
         alert("Login Failed");
@@ -24,17 +26,17 @@
   function submitGet(e) {
     $.ajax({
       type: "get",
-      url: "http://127.0.0.1:5000/",
+      url: "http://127.0.0.1:5002/",
       headers: {
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization : "Bearer " + localStorage.getItem("token"),
       },
       success: function (response) {
         console.log(response)
         alert(response)
       },
       error: function (response) {
-        alert(response.status)
-        alert("forbidden");
+        console.log(response)
+        alert("forbidden"+response.status)
       },
     });
   }
@@ -42,7 +44,7 @@
     document.getElementById('id01').style.display='none'
     $.ajax({
       type: "post",
-      url: "http://127.0.0.1:5000/",
+      url: "http://127.0.0.1:5002/",
       data: $("#formshort").serialize(),
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
@@ -57,7 +59,7 @@
   }
   function deleteAll() {
     $.ajax({
-      url: "/",
+      url: "http://127.0.0.1:5002/",
       type: "DELETE",
       contentType:'application/json',
       headers: {
@@ -76,7 +78,7 @@
   function deleteURLById(id) {
     document.getElementById('id02').style.display='none'
     $.ajax({
-      url: '/'+id,
+      url: "http://127.0.0.1:5002/"+id,
       type: "DELETE",
       contentType:'application/json',
       headers: {
@@ -94,7 +96,7 @@
   function updateURLById(id) {
     document.getElementById('id03').style.display='none'
     $.ajax({
-      url: '/'+id,
+      url: "http://127.0.0.1:5002/"+id,
       type: "PUT",
       contentType:'application/json',
       headers: {
@@ -113,7 +115,7 @@
   function getURLById(id) {
     document.getElementById('id04').style.display='none'
     $.ajax({
-      url: "http://127.0.0.1:5000/"+id,
+      url: "http://127.0.0.1:5002/"+id,
       type: "GET",
       contentType:'application/json',
       headers: {
@@ -121,10 +123,10 @@
       },
       dataType: 'text',   
       success: function (result) {
-        console.log(result.status)
+        console.log('success')
+        alert(result)
       },
       error: function (result) {
-        console.log(result.status)
         alert(result.status)
       },
     });
@@ -156,6 +158,9 @@
     <button id="goodLogin" onclick="submitPost()" type="button">Login</button>
   </div>
 </form>
+
+
+
 <div id="buttongroup" style="display:none">
 <button id="ShowURLS" onclick="submitGet()">ShowURLS</button>
 <button id="ShortenURL" onclick="document.getElementById('id01').style.display='block'" >ShortenURL</button>

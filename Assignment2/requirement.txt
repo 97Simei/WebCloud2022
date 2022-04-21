@@ -1,3 +1,4 @@
 flask
 hashids
 Flask-JWT-Extended
+flask_cors 
