@@ -97,4 +97,3 @@ def createShortUrl():
             shorturl = request.host_url + hashid
             return render_template('index.html', short_url=shorturl)
     return render_template('index.html')
-
