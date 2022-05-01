@@ -1,7 +1,7 @@
 # WebCloud2022
 
 # Structure
-- Assignment3: root folder of the second assignment 
+- Assignment3.1: root folder of the second assignment 
     - static: folder, css style 
     - templates: folder, html files
     - nginx: folder, nginx files
