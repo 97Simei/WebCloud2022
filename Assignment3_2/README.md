@@ -31,8 +31,8 @@
   kubectl apply -f as3serviceuser.yaml
   kubectl apply -f as3serviceapp.yaml 
   ```
-- "http://<IP>>:5001/users": user register
-- "http://<IP<>>:5001/users/login": user login and generate jwt code then send to the front end local storage
+- "http://&ltIP&lt:5001/users": user register
+- "http://&ltIP&lt:5001/users/login": user login and generate jwt code then send to the front end local storage
 - Click the button in the above page to use the shortenurl service:
       <img width="805" alt="Screenshot 2022-04-21 at 21 55 42" src="https://user-images.githubusercontent.com/86485345/164542282-3b130a0c-ec5d-4625-9137-02e51fe591bd.png">
 
