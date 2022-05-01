@@ -29,8 +29,8 @@
     docker run -p 5002:5002 app
     ```
 - "http://127.0.0.1:5001/users" : user register
-  "http://127.0.0.1:5001/users/login": user login and generate jwt code then send to the front end local storage
-  Click the button in the above page to use the shortenurl service:
+- "http://127.0.0.1:5001/users/login": user login and generate jwt code then send to the front end local storage
+- Click the button in the above page to use the shortenurl service:
       <img width="805" alt="Screenshot 2022-04-21 at 21 55 42" src="https://user-images.githubusercontent.com/86485345/164542282-3b130a0c-ec5d-4625-9137-02e51fe591bd.png">
     
 # Run the nginx proxy
