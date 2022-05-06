@@ -25,8 +25,10 @@
 # Run the basic code without nginx
 - Change the url "127.0.0.1" in ./tenplates/login.html to "127.0.0.1:5002".
 - Build the docker containers:
+    ```
     docker build -f Dockerfileuser -t user .
     docker build -f Dockerfileapp -t app .
+    ```
 - Run the containers separately:  
     ```
     docker run -p 5001:5001 user
