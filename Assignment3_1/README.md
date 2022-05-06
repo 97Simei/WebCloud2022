@@ -16,9 +16,7 @@
     - docker-compose.yml: docker compose file for nginx proxy.
 
 # Run the nginx proxy
-    ```
     docker compose up
-    ```
 - "http://127.0.0.1:5001/users" : user register
 - "http://127.0.0.1:5001/users/login": user login and generate jwt code then send to the front end local storage
 - Click the button in the above page to use the shortenurl service:
@@ -27,10 +25,8 @@
 # Run the basic code without nginx
 - Change the url "127.0.0.1" in ./tenplates/login.html to "127.0.0.1:5002".
 - Build the docker containers:
-    ```
     docker build -f Dockerfileuser -t user .
     docker build -f Dockerfileapp -t app .
-    ```
 - Run the containers separately:  
     ```
     docker run -p 5001:5001 user
