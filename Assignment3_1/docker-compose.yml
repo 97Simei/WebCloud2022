@@ -2,6 +2,7 @@ version: "3.7"
 
 services:
 
+# -Build docker container: user
   user:
     build:
       dockerfile: Dockerfileuser
@@ -10,6 +11,7 @@ services:
     environment: 
       - APP_NAME=user
 
+# -Build docker container: app
   app:
     build:
       dockerfile: Dockerfileapp
@@ -18,7 +20,7 @@ services:
     environment: 
        - APP_NAME=app
   
-  
+# -Build docker container nginx using the settings in ./nginx
   nginx:
     build: ./nginx
     container_name: nginx 
