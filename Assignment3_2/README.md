@@ -19,12 +19,12 @@
 
 # Run
 - Set up the Kubernetes cluster and install Docker inside.
-- Build the docker containers in all the nodes:
+- Build the docker containers at all the nodes:
     ```
     docker build -f Dockerfileuser -t k8s-user .
     docker build -f Dockerfileapp -t k8s-app .
     ```
-- Create deployments and services
+- Create deployments and services at the control node.
   ```
   kubectl apply -f as3deployuser.yaml 
   kubectl apply -f as3deployapp.yaml 
