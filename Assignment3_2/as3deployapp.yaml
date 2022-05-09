@@ -1,10 +1,13 @@
 apiVersion: apps/v1
+# Create deployment file
 kind: Deployment
 metadata:
+  # Set deployment named app-deployment
   name: app-deployment
   labels:
     app: app
 spec:
+  # Create 3 replicas (Pods)
   replicas: 3
   selector:
     matchLabels:
@@ -14,9 +17,11 @@ spec:
       labels:
         app: app
     spec:
+      # Get image from the container k8s-app
       containers:
         - name: k8s-app
           image: k8s-app
           imagePullPolicy: Never 
           ports:
+            # port for shortener app: 5002
             - containerPort: 5002
