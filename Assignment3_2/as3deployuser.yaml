@@ -2,7 +2,7 @@ apiVersion: apps/v1
 # Create deployment file
 kind: Deployment
 metadata:
-  # Set deployment named app-deployment
+  # Set deployment named user-deployment
   name: user-deployment
   labels:
     app: user
