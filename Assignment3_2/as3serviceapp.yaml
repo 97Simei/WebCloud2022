@@ -1,6 +1,9 @@
+#Kubernets API version
 apiVersion: v1
+# Kubernets Resource Type: Service
 kind: Service
 metadata:
+  # Service Name: app-service
   name: app-service
 spec:
   ports:
