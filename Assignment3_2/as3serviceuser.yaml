@@ -10,9 +10,13 @@ metadata:
     app: user
 spec:
   ports:
+      #usually, targetport is the same with the port
     - port: 5001
-      nodePort: 30007
       targetPort: 5001
+      # By default and for convenience, the Kubernetes control plane will allocate a port from a range (default: 30000-32767)
+      # we manually set the nodeport for 30007
+      nodePort: 30007
   selector:
     app: user
+  #service type
   type: NodePort
