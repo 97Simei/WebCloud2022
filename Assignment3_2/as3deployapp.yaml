@@ -1,9 +1,11 @@
+#Kubernets API version
 apiVersion: apps/v1
-# Create deployment file
+# Kubernets Resource Type: Deployment
 kind: Deployment
 metadata:
-  # Set deployment named app-deployment
+  # Deployment Name: app-deployment
   name: app-deployment
+  # key-value set
   labels:
     app: app
 spec:
@@ -19,9 +21,13 @@ spec:
     spec:
       # Get image from the container k8s-app
       containers:
+          #contianer name
         - name: k8s-app
+          #image name
           image: k8s-app
+          #image pull policy, the docker image is already build in the local
           imagePullPolicy: Never 
+          #docker container port
           ports:
             # port for shortener app: 5002
             - containerPort: 5002
