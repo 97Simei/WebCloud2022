@@ -1,0 +1,37 @@
+name: getdata
+version: 1.0.0
+kind: ecu
+
+# Define the dependencies (as Ubuntu packages)
+dependencies:
+  - python3
+  - python3-yaml
+  - python3-pip
+
+install:
+  - pip3 install -r requirements.txt
+
+# Define the files that are part of the package
+files:
+  - train.csv
+  - test.csv
+  - code.py
+  - requirements.txt
+
+# Defines the file to call whenever a function is called
+entrypoint:
+  kind: task
+  exec: code.py
+
+# Define the actions
+actions:
+  'getdata':
+    command:
+      # This is just a list of arguments we pass to the function (i.e., sys.argv in Python)
+      args:
+      - train
+    input:
+    output:
+    # Define the output: a string, identifyable by the 'output' key
+    - name: output
+      type: string
