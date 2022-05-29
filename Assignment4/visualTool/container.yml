@@ -1,0 +1,43 @@
+#!/usr/bin/env python3
+name: visual_test # Package name in Brane
+version: 0.5.0
+kind: ecu
+
+dependencies:
+  - python3
+  - python3-pip
+  - python3-yaml
+
+install:
+  - pip3 install -r requirements.txt
+
+files:
+  - visualEntry.py
+  - requirements.txt
+  - visualFunctionDetail.py
+
+entrypoint:
+  kind: task
+  exec: visualEntry.py
+
+actions:
+  'plot': # Function name in BraneScript
+    command:
+      args:
+        - plot # functions key in Python
+    input:
+      - type: string
+        name: input_path
+      - type: string
+        name: target_columns
+      - type: string
+        name: title
+      - type: string
+        name: plot_type
+      - type: string
+        name: function_type
+      - type: string
+        name: output_path
+    output:
+      - type: string
+        name: output
