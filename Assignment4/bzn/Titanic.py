@@ -40,7 +40,13 @@ def set_normalization(df):
     df['Fare_scaled'] = scaler.fit_transform(df['Fare'].values.reshape(-1,1),fare_scale_param)
     return df
 
-def train(df):
+def train(input_path):
+
+    df = read_input(input_path)
+    df = data_clean(df)
+    df = set_numeralization(df)
+    df = set_normalization(df)
+
     train_df = df.filter(regex='Survived|Age_.*|SibSp|Parch|Fare_.*|Embarked_.*|Sex_.*|Pclass_.*')
     train_np = train_df.values
 
@@ -59,11 +65,16 @@ def train(df):
     return "Wrote the model to: /data/clf.pickle.\n" 
 
 #def test(input: str, output_path: str) -> str:
-def test(df, output_path):
+def test(input_path, output_path):
     if os.path.getsize('/data/clf.pickle') > 0:
         f = open('/data/clf.pickle','rb')
         clf = pickle.load(f)
         f.close()
+
+        df = read_input(input_path)
+        df = data_clean(df)
+        df = set_numeralization(df)
+        df = set_normalization(df)
 
         test_df = df.filter(regex='Age_.*|SibSp|Parch|Fare_.*|Embarked_.*|Sex_.*|Pclass_.*')
         predictions = clf.predict(test_df)
@@ -84,20 +95,15 @@ if __name__ == "__main__":
         exit(1)
 
     input_path = os.environ["INPUT"]
-    
-    df = read_input(input_path)
-    df = data_clean(df)
-    df = set_numeralization(df)
-    df = set_normalization(df)
 
     # If it checks out, call the appropriate function
     command = sys.argv[1]
     if command == "train":
-        result = train(df)
+        result = train(input_path)
         #result = train(os.environ["INPUT"])
     else:
         output_path = os.environ["OUTPUT_PATH"]
-        result = test(df, output_path)
+        result = test(input_path, output_path)
         #result = test(os.environ["INPUT"], os.environ["OUTPUT_PATH"])
 
     # Print the result with the YAML package
